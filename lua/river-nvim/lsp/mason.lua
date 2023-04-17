@@ -4,7 +4,7 @@ if not lspconfig_status_ok then
 end
 
 local servers = {
-    "lua_ls",
+	"lua_ls",
 	-- "cssls",
 	-- "html",
 	-- "tsserver",
