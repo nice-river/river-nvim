@@ -98,6 +98,25 @@ local plugins = {
 		"akinsho/bufferline.nvim",
 		dependencies = { "moll/vim-bbye" },
 	},
+
+	{ "nvim-lualine/lualine.nvim" },
+
+	{ "ahmedkhalf/project.nvim" },
+
+	{
+		"lewis6991/impatient.nvim",
+		config = function()
+			require("impatient")
+		end,
+	},
+
+	{ "lukas-reineke/indent-blankline.nvim" },
+
+	{
+		"goolord/alpha-nvim",
+	},
+
+	{ "folke/which-key.nvim" },
 }
 
 local opts = {}
