@@ -55,6 +55,7 @@ local plugins = {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
+            "folke/neoconf.nvim",
 		},
 	},
 	"jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
@@ -117,6 +118,8 @@ local plugins = {
 	},
 
 	{ "folke/which-key.nvim" },
+
+    { "RRethy/vim-illuminate" },
 }
 
 local opts = {}

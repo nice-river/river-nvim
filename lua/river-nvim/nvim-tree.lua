@@ -16,12 +16,6 @@ local tree_cb = nvim_tree_config.nvim_tree_callback
 nvim_tree.setup({
 	disable_netrw = true,
 	hijack_netrw = true,
-	open_on_setup = false,
-	ignore_ft_on_setup = {
-		"startify",
-		"dashboard",
-		"alpha",
-	},
 	open_on_tab = false,
 	hijack_cursor = false,
 	update_cwd = true,
@@ -49,11 +43,9 @@ nvim_tree.setup({
 		timeout = 500,
 	},
 	view = {
-		width = 30,
-		height = 30,
+		width = 35,
 		hide_root_folder = false,
 		side = "right",
-		auto_resize = true,
 		mappings = {
 			custom_only = false,
 			list = {
@@ -66,8 +58,11 @@ nvim_tree.setup({
 		relativenumber = false,
 	},
 	actions = {
-		quit_on_open = true,
-		window_picker = { enable = true },
+        open_file = {
+            -- quit_on_open = true,
+            window_picker = { enable = true },
+		    resize_window = true,
+        }
 	},
 	renderer = {
 		highlight_git = true,

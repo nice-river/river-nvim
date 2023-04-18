@@ -80,33 +80,41 @@ local opts = {
 
 local mappings = {
 	["a"] = { "<cmd>Alpha<cr>", "Alpha" },
-	["b"] = {
-		"<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-		"Buffers",
-	},
-	["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-	["w"] = { "<cmd>w!<CR>", "Save" },
-	["q"] = { "<cmd>q!<CR>", "Quit" },
-	["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
-	["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
-	["f"] = {
-		"<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-		"Find files",
-	},
-	["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
-	["P"] = { "<cmd>Telescope projects<cr>", "Projects" },
+
+    b = {
+        name = "+buffer",
+        b = {
+            "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes'))<cr>",
+            "Show Buffers",
+        },
+        n = { "<cmd>bnext<cr>", "Next buffer" },
+        p = { "<cmd>bprevious<cr>", "Previous buffer" },
+	    c = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+    },
+
+    f = {
+        name = "+file",
+        f = {
+            "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes'))<cr>",
+            "Find files",
+        },
+        t = {"<cmd>NvimTreeToggle<cr>", "File Tree"},
+	    w = { "<cmd>w<CR>", "Save" },
+    },
+
+    q = {
+        name = "+quit",
+	    q = { "<cmd>q<CR>", "Quit" },
+	    Q = { "<cmd>qa!<CR>", "Force Quit" },
+    },
 
 	p = {
-		name = "Packer",
-		c = { "<cmd>PackerCompile<cr>", "Compile" },
-		i = { "<cmd>PackerInstall<cr>", "Install" },
-		s = { "<cmd>PackerSync<cr>", "Sync" },
-		S = { "<cmd>PackerStatus<cr>", "Status" },
-		u = { "<cmd>PackerUpdate<cr>", "Update" },
+		name = "+project",
+	    p = { "<cmd>Telescope projects<cr>", "Projects" },
 	},
 
 	g = {
-		name = "Git",
+		name = "+git",
 		g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
 		j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
 		k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
@@ -129,7 +137,7 @@ local mappings = {
 	},
 
 	l = {
-		name = "LSP",
+		name = "+lsp",
 		a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
 		d = {
 			"<cmd>Telescope lsp_document_diagnostics<cr>",
@@ -160,7 +168,8 @@ local mappings = {
 		},
 	},
 	s = {
-		name = "Search",
+		name = "+search",
+	    s = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
 		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
 		c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
 		h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
@@ -172,7 +181,7 @@ local mappings = {
 	},
 
 	t = {
-		name = "Terminal",
+		name = "+terminal",
 		n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
 		u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
 		t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
