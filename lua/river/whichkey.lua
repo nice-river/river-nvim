@@ -79,38 +79,45 @@ local opts = {
 }
 
 local mappings = {
-	["a"] = { "<cmd>Alpha<cr>", "Alpha" },
+	-- ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
 
-    b = {
-        name = "+buffer",
-        b = {
-            "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes'))<cr>",
-            "Show Buffers",
-        },
-        n = { "<cmd>bnext<cr>", "Next buffer" },
-        p = { "<cmd>bprevious<cr>", "Previous buffer" },
-	    c = { "<cmd>Bdelete!<CR>", "Close Buffer" },
-    },
+	b = {
+		name = "+buffer",
+		b = {
+			"<cmd>lua require('telescope.builtin').buffers(require('telescope.themes'))<cr>",
+			"Show Buffers",
+		},
+		n = { "<cmd>bnext<cr>", "Next buffer" },
+		p = { "<cmd>bprevious<cr>", "Previous buffer" },
+		c = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+	},
 
-    f = {
-        name = "+file",
-        f = {
-            "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes'))<cr>",
-            "Find files",
-        },
-        t = {"<cmd>NvimTreeToggle<cr>", "File Tree"},
-	    w = { "<cmd>w<CR>", "Save" },
-    },
+	f = {
+		name = "+file",
+		f = {
+			"<cmd>lua require('telescope.builtin').find_files(require('telescope.themes'))<cr>",
+			"Find files",
+		},
+		t = {
+			function()
+				local path = require("river.util").get_root()
+				print(path)
+				require("nvim-tree.api").tree.toggle({ path = path })
+			end,
+			"File Tree",
+		},
+		w = { "<cmd>w<CR>", "Save" },
+	},
 
-    q = {
-        name = "+quit",
-	    q = { "<cmd>q<CR>", "Quit" },
-	    Q = { "<cmd>qa!<CR>", "Force Quit" },
-    },
+	q = {
+		name = "+quit",
+		q = { "<cmd>q<CR>", "Quit" },
+		Q = { "<cmd>qa!<CR>", "Force Quit" },
+	},
 
 	p = {
 		name = "+project",
-	    p = { "<cmd>Telescope projects<cr>", "Projects" },
+		p = { "<cmd>Telescope projects<cr>", "Projects" },
 	},
 
 	g = {
@@ -169,7 +176,7 @@ local mappings = {
 	},
 	s = {
 		name = "+search",
-	    s = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
+		s = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
 		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
 		c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
 		h = { "<cmd>Telescope help_tags<cr>", "Find Help" },

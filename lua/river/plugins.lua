@@ -55,7 +55,14 @@ local plugins = {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-            "folke/neoconf.nvim",
+			"folke/neoconf.nvim",
+			"mfussenegger/nvim-dap",
+			{
+				"simrat39/rust-tools.nvim",
+				-- config = function()
+				-- 	require("rust-tools").setup({})
+				-- end,
+			},
 		},
 	},
 	"jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
@@ -119,7 +126,7 @@ local plugins = {
 
 	{ "folke/which-key.nvim" },
 
-    { "RRethy/vim-illuminate" },
+	{ "RRethy/vim-illuminate" },
 }
 
 local opts = {}
