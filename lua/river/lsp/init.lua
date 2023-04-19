@@ -4,15 +4,12 @@ if not status_ok then
 end
 
 require("river.lsp.null-ls")
+require("fidget").setup({})
 
 local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_cmp_ok then
 	return
 end
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 
 local signs = {
 
@@ -54,6 +51,40 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 	border = "rounded",
 })
 
+require("mason").setup({
+	ui = {
+		border = "none",
+		icons = {
+			package_installed = "◍",
+			package_pending = "◍",
+			package_uninstalled = "◍",
+		},
+	},
+	log_level = vim.log.levels.INFO,
+	max_concurrent_installers = 4,
+})
+
+-- local servers = {
+-- 	"lua_ls",
+-- 	-- "cssls",
+-- 	-- "html",
+-- 	-- "tsserver",
+-- 	-- "pyright",
+-- 	-- "bashls",
+-- 	-- "jsonls",
+-- 	"rust_analyzer",
+-- 	-- "yamlls",
+-- }
+
+-- require("mason-lspconfig").setup({
+-- 	ensure_installed = servers,
+-- 	automatic_installation = true,
+-- })
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
 	local keymap = vim.api.nvim_buf_set_keymap
@@ -86,53 +117,26 @@ local on_attach = function(client, bufnr)
 	lsp_keymaps(bufnr)
 end
 
-local settings = {
-	ui = {
-		border = "none",
-		icons = {
-			package_installed = "◍",
-			package_pending = "◍",
-			package_uninstalled = "◍",
-		},
-	},
-	log_level = vim.log.levels.INFO,
-	max_concurrent_installers = 4,
+local opts = {
+	on_attach = on_attach,
+	capabilities = capabilities,
 }
 
-local servers = {
-	"lua_ls",
-	-- "cssls",
-	-- "html",
-	-- "tsserver",
-	"pyright",
-	-- "bashls",
-	"jsonls",
-	"rust_analyzer",
-	-- "yamlls",
-}
+-- local lspconfig = require("lspconfig")
+-- for _, server in pairs(servers) do
+-- 	opts = {}
+--
+-- 	server = vim.split(server, "@")[1]
+--
+-- 	local require_ok, conf_opts = pcall(require, "river.lsp.languages." .. server)
+-- 	if require_ok then
+-- 		opts = vim.tbl_deep_extend("force", conf_opts, opts)
+-- 	end
+--
+-- 	lspconfig[server].setup(opts)
+-- end
 
-require("mason").setup(settings)
-require("mason-lspconfig").setup({
-	ensure_installed = servers,
-	automatic_installation = true,
-})
-
-local lspconfig = require("lspconfig")
-
-local opts = {}
-
-for _, server in pairs(servers) do
-	opts = {
-		on_attach = on_attach,
-		capabilities = capabilities,
-	}
-
-	server = vim.split(server, "@")[1]
-
-	local require_ok, conf_opts = pcall(require, "river.lsp.languages." .. server)
-	if require_ok then
-		opts = vim.tbl_deep_extend("force", conf_opts, opts)
-	end
-
-	lspconfig[server].setup(opts)
+local languages = require("river.lsp.languages")
+for _, lang in pairs(languages) do
+	lang.setup(opts)
 end

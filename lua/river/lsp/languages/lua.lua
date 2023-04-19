@@ -1,4 +1,6 @@
-return {
+local M = {}
+
+local conf = {
 	settings = {
 		Lua = {
 			diagnostics = {
@@ -13,3 +15,10 @@ return {
 		},
 	},
 }
+
+function M.setup(opts)
+	opts = vim.tbl_deep_extend("force", conf, opts)
+	require("lspconfig").lua_ls.setup(opts)
+end
+
+return M

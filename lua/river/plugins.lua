@@ -127,6 +127,10 @@ local plugins = {
 	{ "folke/which-key.nvim" },
 
 	{ "RRethy/vim-illuminate" },
+
+	{
+		"j-hui/fidget.nvim",
+	},
 }
 
 local opts = {}
